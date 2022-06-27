@@ -1,0 +1,17 @@
+loxilb needs a custom "tc" build from this forked iproute2 package.  The following steps needs to be followed to build the custom iproute2 
+
+1. Build libbpf locally
+
+  #  cd libbpf/src/
+  #  mkdir build
+  #  DESTDIR=build make install
+ 
+2. Build iproute2
+  
+ This fork is based on iproute2 commit : 9f366536edb5158343152604e82b968be46dbf26
+
+  # export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:`pwd`/libbpf/src/
+  # LIBBPF_FORCE=on LIBBPF_DIR=`pwd`/libbpf/src/build ./configure
+  # make
+
+3. sudo cp -f tc/tc /usr/local/sbin/ntc
