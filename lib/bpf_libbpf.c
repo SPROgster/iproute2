@@ -237,14 +237,14 @@ static int handle_loxilb_tail_calls(struct bpf_object *obj)
       fd = bpf_program__fd(prog);
 
       section = bpf_program__section_name(prog);
-      if (strcmp(section, "tc_packet_parser2") == 0) {
-        key = 2; 
-      } else if (strcmp(section, "tc_packet_parser1") == 0) {
-        key = 1; 
-      } else  if (strcmp(section, "tc_packet_parser0") == 0) {
-        key = 0; 
+      if (strcmp(section, "tc_packet_hook2") == 0) {
+        key = 2;
+      } else if (strcmp(section, "tc_packet_hook1") == 0) {
+        key = 1;
+      } else  if (strcmp(section, "tc_packet_hook0") == 0) {
+        key = 0;
       } else key = -1;
-      
+
       if (key >= 0)
         bpf_map_update_elem(jmp_table_fd, &key, &fd, BPF_ANY);
     }
@@ -337,8 +337,8 @@ static int load_bpf_object(struct bpf_cfg_in *cfg)
 		if (find_legacy_tail_calls(p, obj) < 0 && cfg->section &&
 		    strcmp(get_bpf_program__section_name(p), cfg->section)) {
 #endif
-		if ((strcmp(get_bpf_program__section_name(p), "tc_packet_parser1") == 0 || 
-		    strcmp(get_bpf_program__section_name(p), "tc_packet_parser2") == 0) &&
+		if ((strcmp(get_bpf_program__section_name(p), "tc_packet_hook1") == 0 ||
+		    strcmp(get_bpf_program__section_name(p), "tc_packet_hook2") == 0) &&
 		    strcmp(get_bpf_program__section_name(p), cfg->section)) {
 
       fprintf(stdout, "AUTOLOAD: sec %s prog %s\n",
