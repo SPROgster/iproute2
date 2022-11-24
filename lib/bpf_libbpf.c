@@ -237,7 +237,9 @@ static int handle_loxilb_tail_calls(struct bpf_object *obj)
       fd = bpf_program__fd(prog);
 
       section = bpf_program__section_name(prog);
-      if (strcmp(section, "tc_packet_hook2") == 0) {
+      if (strcmp(section, "tc_packet_hook3") == 0) {
+        key = 3;
+      } else if (strcmp(section, "tc_packet_hook2") == 0) {
         key = 2;
       } else if (strcmp(section, "tc_packet_hook1") == 0) {
         key = 1;
@@ -338,7 +340,8 @@ static int load_bpf_object(struct bpf_cfg_in *cfg)
 		    strcmp(get_bpf_program__section_name(p), cfg->section)) {
 #endif
 		if ((strcmp(get_bpf_program__section_name(p), "tc_packet_hook1") == 0 ||
-		    strcmp(get_bpf_program__section_name(p), "tc_packet_hook2") == 0) &&
+		    strcmp(get_bpf_program__section_name(p), "tc_packet_hook2") == 0 ||
+		    strcmp(get_bpf_program__section_name(p), "tc_packet_hook3") == 0) &&
 		    strcmp(get_bpf_program__section_name(p), cfg->section)) {
 
       fprintf(stdout, "AUTOLOAD: sec %s prog %s\n",
