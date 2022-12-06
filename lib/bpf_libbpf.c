@@ -237,7 +237,15 @@ static int handle_loxilb_tail_calls(struct bpf_object *obj)
       fd = bpf_program__fd(prog);
 
       section = bpf_program__section_name(prog);
-      if (strcmp(section, "tc_packet_hook3") == 0) {
+      if (strcmp(section, "tc_packet_hook7") == 0) {
+        key = 7;
+      } else if (strcmp(section, "tc_packet_hook6") == 0) {
+        key = 6;
+      } else if (strcmp(section, "tc_packet_hook5") == 0) {
+        key = 5;
+      } else if (strcmp(section, "tc_packet_hook4") == 0) {
+        key = 4;
+      } else if (strcmp(section, "tc_packet_hook3") == 0) {
         key = 3;
       } else if (strcmp(section, "tc_packet_hook2") == 0) {
         key = 2;
@@ -341,7 +349,11 @@ static int load_bpf_object(struct bpf_cfg_in *cfg)
 #endif
 		if ((strcmp(get_bpf_program__section_name(p), "tc_packet_hook1") == 0 ||
 		    strcmp(get_bpf_program__section_name(p), "tc_packet_hook2") == 0 ||
-		    strcmp(get_bpf_program__section_name(p), "tc_packet_hook3") == 0) &&
+		    strcmp(get_bpf_program__section_name(p), "tc_packet_hook3") == 0 ||
+		    strcmp(get_bpf_program__section_name(p), "tc_packet_hook4") == 0 ||
+		    strcmp(get_bpf_program__section_name(p), "tc_packet_hook5") == 0 ||
+		    strcmp(get_bpf_program__section_name(p), "tc_packet_hook6") == 0 ||
+		    strcmp(get_bpf_program__section_name(p), "tc_packet_hook7") == 0) &&
 		    strcmp(get_bpf_program__section_name(p), cfg->section)) {
 
       fprintf(stdout, "AUTOLOAD: sec %s prog %s\n",
