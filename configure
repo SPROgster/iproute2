@@ -307,7 +307,7 @@ check_libbpf()
         return
     fi
 
-    if [ $(uname -m) = x86_64 ]; then
+    if [ $(uname -m) = x86_64 ] || [ $(uname -m) = aarch64 ] ; then
         local LIBBPF_LIBDIR="${LIBBPF_DIR}/usr/lib64"
     else
         local LIBBPF_LIBDIR="${LIBBPF_DIR}/usr/lib"
